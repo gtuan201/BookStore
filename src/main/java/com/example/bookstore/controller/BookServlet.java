@@ -1,7 +1,9 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.dao.BookDAO;
+import com.example.bookstore.dao.CartDAO;
 import com.example.bookstore.model.Book;
+import com.example.bookstore.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,6 +28,17 @@ public class BookServlet extends HttpServlet {
         BookDAO bookDAO = new BookDAO();
         ArrayList<Book> list_book = bookDAO.getAllBook(keyword);
         req.setAttribute("list_book", list_book);
+        //get quantity cart
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null && new CartDAO().getCart(Integer.parseInt(user.getId())) != null){
+            int cart_id = new CartDAO().getCart(Integer.parseInt(user.getId())).getId();
+            int quantity_item = new CartDAO().getAllItemInCart(cart_id).size();
+            req.setAttribute("quantity_item",quantity_item);
+        }
+        else
+            req.setAttribute("quantity_item", 0 );
+        //
         RequestDispatcher dispatcher = req.getRequestDispatcher("book.jsp");
         dispatcher.forward(req, resp);
     }

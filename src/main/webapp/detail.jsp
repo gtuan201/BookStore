@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Giỏ hàng<span class='badge badge-warning' id='lblCartCount'> ${quantity_item} </span></a>
+            <a class="nav-link active" aria-current="page" onclick="cart_link()" id="cart_link" href="#">Giỏ hàng<span class='badge badge-warning' id='lblCartCount'> ${quantity_item} </span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="test.jsp">Ưa thích</a>
@@ -169,6 +169,17 @@
       alert('Vui lòng đăng nhập !')
       window.location.href = "/login"
     </c:if>
+  }
+  function cart_link(){
+    let cart_link = document.getElementById("cart_link");
+    <c:if test="${sessionScope.user != null}">
+    cart_link.setAttribute("href","/cart");
+    </c:if>
+    <c:if test="${sessionScope.user == null}">
+    alert('Vui lòng đăng nhập')
+    cart_link.setAttribute("href","/login");
+    </c:if>
+    return false;
   }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

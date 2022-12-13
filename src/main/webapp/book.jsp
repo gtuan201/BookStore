@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="cart.jsp">Giỏ hàng</a>
+                        <a class="nav-link active" onclick="cart_link()" id="cart_link" href="#" aria-current="page">Giỏ hàng <span class='badge badge-warning' id='lblCartCount'> ${quantity_item} </span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="test.jsp">Ưa thích</a>
@@ -84,6 +84,41 @@
 
 <footer class="credit">Author: Sanja - Distributed By: <a title="Awesome web design code & scripts" href="https://www.codehim.com?source=demo-page" target="_blank">CodeHim</a></footer>
 <!-- Bootstrap 5 JS -->
+<script type="text/javascript">
+    function cart_link(){
+        let cart_link = document.getElementById("cart_link");
+        <c:if test="${sessionScope.user != null}">
+            cart_link.setAttribute("href","/cart");
+        </c:if>
+        <c:if test="${sessionScope.user == null}">
+            alert('Vui lòng đăng nhập')
+            cart_link.setAttribute("href","/login");
+        </c:if>
+        return false;
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
+<style>
+    .badge {
+        padding-left: 9px;
+        padding-right: 9px;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 9px;
+    }
+
+    .label-warning[href],
+    .badge-warning[href] {
+        background-color: #c67605;
+    }
+    #lblCartCount {
+        font-size: 13px;
+        background: #ff0000;
+        color: #fff;
+        padding: 0 5px;
+        vertical-align: top;
+        margin-left: -7px;
+    }
+</style>
