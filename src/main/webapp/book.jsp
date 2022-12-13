@@ -26,10 +26,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Giỏ hàng</a>
+                        <a class="nav-link active" aria-current="page" href="cart.jsp">Giỏ hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Ưa thích</a>
+                        <a class="nav-link active" aria-current="page" href="test.jsp">Ưa thích</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Lịch sử mua hàng</a>
@@ -66,9 +66,9 @@
                 <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
                     <div class="product"> <img src="${book.img}" alt="">
                         <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                            <li class="icon"><span onclick="window.location.href='/detail';" class="fas fa-expand-arrows-alt"></span></li>
+                            <li class="icon"><span onclick="window.location.href='/detail?id=${book.id}';" class="fas fa-expand-arrows-alt"></span></li>
                             <li class="icon mx-3"><span class="far fa-heart"></span></li>
-                            <li class="icon"><span onclick="window.location.href='/home?book=${book.id}';" class="fas fa-shopping-bag"></span></li>
+                            <li class="icon"><span class="fas fa-shopping-bag"></span></li>
                         </ul>
                     </div>
                     <div class="tag bg-red">${book.category}</div>

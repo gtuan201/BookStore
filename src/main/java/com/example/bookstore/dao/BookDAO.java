@@ -42,6 +42,36 @@ public class BookDAO extends DAO{
     }
     public Book getOneBook(String id){
         Book book = new Book();
+        try {
+            Statement statement = null;
+            ResultSet resultSet = null;
+            statement = con.createStatement();
+            String sql = "select*from book_project.book where id=" + id;
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String author = resultSet.getString("author");
+                String description = resultSet.getString("description");
+                String category = resultSet.getString("category");
+                String price = resultSet.getString("price");
+                String page = resultSet.getString("page");
+                String date = resultSet.getString("date");
+                String img = resultSet.getString("img");
+                int isFavorite = resultSet.getInt("isFavorite");
+                book.setId(id);
+                book.setName(name);
+                book.setAuthor(author);
+                book.setDate(date);
+                book.setDescription(description);
+                book.setCategory(category);
+                book.setPage(page);
+                book.setPrice(price);
+                book.setImg(img);
+                book.setIsFavorite(isFavorite);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return book;
     }
 }
