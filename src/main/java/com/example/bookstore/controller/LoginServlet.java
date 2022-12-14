@@ -1,4 +1,5 @@
 package com.example.bookstore.controller;
+import com.example.bookstore.dao.CartDAO;
 import com.example.bookstore.dao.UserDAO;
 import com.example.bookstore.model.User;
 
@@ -26,12 +27,16 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         UserDAO userDAO = new UserDAO();
+        CartDAO cartDAO = new CartDAO();
         HttpSession session = req.getSession();
         User user = userDAO.login(email,password);
         if (user == null){
             session.setAttribute("login_false",false);
             req.getRequestDispatcher("/login.jsp").forward(req,resp);
         }else {
+            if (!cartDAO.existCart(Integer.parseInt(user.getId()))) {
+                cartDAO.createCart(Integer.parseInt(user.getId()));
+            }
             session.removeAttribute("login_false");
             session.setAttribute("user",user);
             resp.sendRedirect("/home");

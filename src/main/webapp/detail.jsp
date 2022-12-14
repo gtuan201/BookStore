@@ -163,7 +163,9 @@
     if (quantity <= 0){
       $('.alert').show()
     }
-    else  document.getElementById("form_cart").submit();
+    else  {
+      document.getElementById("form_cart").submit();
+    }
     </c:if>
     <c:if test="${sessionScope.user == null}">
       alert('Vui lòng đăng nhập !')

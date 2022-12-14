@@ -47,6 +47,8 @@ public class AddCartServlet extends HttpServlet {
             }
             session.setAttribute("cart",cart);
         }
+        //remove session cart empty
+        session.removeAttribute("cart_empty");
         resp.sendRedirect("/detail?id=" + book_id);
     }
 }

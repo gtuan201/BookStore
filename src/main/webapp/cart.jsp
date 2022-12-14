@@ -21,6 +21,11 @@
                         <div class="col"><h4><b>Giỏ Hàng</b></h4></div>
                     </div>
                 </div>
+                <c:if test="${sessionScope.cart_empty == true}">
+                    <div class="alert alert-info" role="alert">
+                        Không có sản phẩm nào trong giỏ hàng !
+                    </div>
+                </c:if>
                 <c:forEach var="book" items="${book_in_cart}">
                     <div class="row border-top border-bottom">
                         <div class="row main align-items-center">
@@ -43,20 +48,20 @@
                 <div class="row">
                     <div class="col" style="padding-left:0;">Sản phẩm : ${cart_quantity}</div>
                 </div>
-                <form action="" method="post">
+                <form id="form_order" action="${pageContext.request.contextPath}/cart?total=${total}" method="post">
                     <label>Họ tên người nhận hàng</label>
-                    <input name="name" type="text" placeholder="Nhập họ tên người nhận hàng...">
+                    <input id="checkname" name="name" type="text" placeholder="Nhập họ tên người nhận hàng..." required>
                     <label>Địa chỉ</label>
-                    <input name="address" type="text" placeholder="Nhập địa chỉ chi tiết giao hàng...">
+                    <input id="checkaddress" name="address" type="text" placeholder="Nhập địa chỉ chi tiết giao hàng..." required>
                     <label>Số điện thoại</label>
-                    <input name="phonenumber" type="number" placeholder="Số điện thoại nhận hàng...">
+                    <input id="checkphone" name="phonenumber" type="number" placeholder="Số điện thoại nhận hàng..." required>
                     <label>Phí giao hàng</label>
                     <select><option class="text-muted">Vận chuyển nhanh- 21.200 VNĐ</option></select>
                 </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TỔNG TIỀN : ${total} VNĐ</div>
                 </div>
-                <button class="btn rounded">Đặt hàng</button>
+                <button onclick="order()" class="btn rounded">Đặt hàng</button>
                 <div style="margin-top: 10px;"><a href="/home">Quay lại trang chủ</a></div>
             </div>
         </div>
@@ -64,3 +69,27 @@
 </main>
 </body>
 </html>
+<script>
+    function order(){
+        <c:if test="${sessionScope.cart_empty == null}">
+            let phone = document.getElementById("checkphone").value;
+            let name = document.getElementById("checkname").value;
+            let address = document.getElementById("checkaddress").value;
+            if (name.length === 0){
+                alert('Không được để trống họ tên người nhận hàng!')
+            }
+            else if (address.length === 0){
+                alert('Không được để trống địa chỉ nhận hàng')
+            }
+            else if (phone.length < 10 || phone.length > 11){
+                alert('Số điện thoại không hợp lệ')
+            }
+            else document.getElementById("form_order").submit()
+        </c:if>
+        <c:if test="${sessionScope.cart_empty == true}">
+            alert('Hãy thêm sản phẩm vào giỏ hàng trước khi thanh toán')
+            window.location.href = "/home";
+        </c:if>
+
+    }
+</script>
