@@ -48,14 +48,17 @@ public class OrderDAO extends DAO{
             e.printStackTrace();
         }
     }
-    public ArrayList<Order> getOrder(String user_id){
+    public ArrayList<Order> getOrder(String user_id, int statusInp){
         ArrayList<Order> list = new ArrayList<>();
         try {
             Statement statement = null;
             ResultSet resultSet = null;
             statement = con.createStatement();
-            String sql = "select*from book_project.order where user_id=" + user_id + " and status = 1 or user_id=" + user_id + " and status =2";
-            System.out.println(sql);
+            String sql;
+            if (statusInp == 3){
+                sql = "select*from book_project.order where user_id=" + user_id + " and status = 3";
+            }
+            else sql = "select*from book_project.order where user_id=" + user_id + " and status = 1 or user_id=" + user_id + " and status =2";
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 int id = resultSet.getInt("id");

@@ -28,18 +28,22 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="test.jsp">Ưa thích</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Lịch sử mua hàng</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/login">Đăng nhập</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/register">Đăng ký</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
-          </li>
+          <c:if test="${sessionScope.user == null}">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/login">Đăng nhập</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/register">Đăng ký</a>
+            </li>
+          </c:if>
+          <c:if test="${sessionScope.user != null}">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/order">Lịch sử mua hàng</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+            </li>
+          </c:if>
         </ul>
       </div>
     </div>
@@ -57,6 +61,11 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade show active" id="home">
+      <c:if test="${order_size == 0}">
+        <div style="margin-top: 20px" class="alert alert-danger" role="alert">
+          Không có đơn hàng nào đang giao !
+        </div>
+      </c:if>
       <c:forEach var="order" items="${order_list}">
         <div class="container">
           <div class="table">
@@ -109,50 +118,57 @@
       </c:forEach>
     </div>
     <div class="tab-pane fade" id="profile">
-      <div class="container">
-        <div class="table">
-          <div class="alert alert-primary" role="alert">
-            Họ tên: Tuấn<br>
-            Địa chỉ giao hàng<br>
-            Số điện thoại nhận hàng<br>
-            Trạng thái<br>
-          </div>
-          <table class="table table-bordered" style="width: 100%">
-            <thead>
-            <th></th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>total</th>
-            </thead>
-            <tbody>
-            <tr class="align-middle alert border-bottom" role="alert">
-              <td class="text-center">
-                <img class="pic border border-dark"
-                     src="assest/bookcover3.jpg"
-                     alt="">
-              </td>
-              <td>
-                <div>
-                  <p class="m-0 fw-bold">Sneakers Shoes 2020 For Men</p>
-                  <p class="m-0 text-muted">Fugiat Voluptates quasi nemo,ipsa perferencis</p>
-                </div>
-              </td>
-              <td>
-                <div class="">$44.99</div>
-              </td>
-              <td class="d-">
-                2
-              </td>
-              <td>
-                $89.98
-              </td>
-            </tr>
-            </tbody>
-          </table>
+      <c:if test="${order_size == 0}">
+        <div style="margin-top: 20px" class="alert alert-danger" role="alert">
+          Không có lịch sử mua hàng !
         </div>
-      </div>
-
+      </c:if>
+      <c:forEach var="order" items="${order_complete}">
+        <div class="container">
+          <div class="table">
+            <div class="alert alert-primary" role="alert">
+              Họ tên khách hàng : ${order.name}<br>
+              Trạng thái : Đã hoàn thành
+              <br>
+            </div>
+            <table class="table table-bordered" style="width: 100%">
+              <thead>
+              <th></th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>total</th>
+              </thead>
+              <tbody>
+              <c:forEach var="item" items="${order.list}">
+                <tr class="align-middle alert border-bottom" role="alert">
+                  <td class="text-center">
+                    <img class="pic border border-dark"
+                         src="${item.book.img}"
+                         alt="">
+                  </td>
+                  <td>
+                    <div>
+                      <p class="m-0 fw-bold">${item.book.name}</p>
+                      <p class="m-0 text-muted">${item.book.author}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="">${item.book.price}</div>
+                  </td>
+                  <td class="d-">
+                      ${item.quantity}
+                  </td>
+                  <td>
+                      ${item.book.price * item.quantity}
+                  </td>
+                </tr>
+              </c:forEach>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </c:forEach>
     </div>
   </div>
 </div>
