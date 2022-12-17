@@ -38,7 +38,6 @@ public class BookServlet extends HttpServlet {
         }
         else
             req.setAttribute("quantity_item", 0 );
-        //
         RequestDispatcher dispatcher = req.getRequestDispatcher("book.jsp");
         dispatcher.forward(req, resp);
     }

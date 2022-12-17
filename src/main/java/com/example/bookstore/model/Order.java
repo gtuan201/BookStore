@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    int id;
     User user;
     List<Book_Item> list = new ArrayList<>();
     String name,address,phonenumber,total;
@@ -24,6 +25,14 @@ public class Order {
 
     public User getUser() {
         return user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setUser(User user) {

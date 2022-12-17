@@ -1,6 +1,8 @@
 package com.example.bookstore.dao;
 
+import com.example.bookstore.model.Book;
 import com.example.bookstore.model.Book_Item;
+import com.example.bookstore.model.Order;
 import com.example.bookstore.model.User;
 
 import java.sql.PreparedStatement;
@@ -45,5 +47,56 @@ public class OrderDAO extends DAO{
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    public ArrayList<Order> getOrder(String user_id){
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            Statement statement = null;
+            ResultSet resultSet = null;
+            statement = con.createStatement();
+            String sql = "select*from book_project.order where user_id=" + user_id + " and status = 1 or user_id=" + user_id + " and status =2";
+            System.out.println(sql);
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String address= resultSet.getString("address");
+                String phonenumber = resultSet.getString("phonenumber");
+                int status = resultSet.getInt("status");;
+                String total = resultSet.getString("total");
+                Order order = new Order();
+                order.setId(id);
+                order.setName(name);
+                order.setAddress(address);
+                order.setPhonenumber(phonenumber);
+                order.setStatus(status);
+                order.setTotal(total);
+                list.add(order);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public ArrayList<Book_Item> getItemOrder(int order_id){
+        ArrayList<Book_Item> list = new ArrayList<>();
+        try {
+            Statement statement = null;
+            ResultSet resultSet = null;
+            statement = con.createStatement();
+            String sql = "select*from book_project.book_order where order_id=" + order_id;
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                String book_id = resultSet.getString("book_id");
+                int quantity = resultSet.getInt("quantity");
+                BookDAO bookDAO = new BookDAO();
+                Book book = bookDAO.getOneBook(book_id);
+                Book_Item bookItem = new Book_Item(book,quantity);
+                list.add(bookItem);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

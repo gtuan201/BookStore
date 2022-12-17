@@ -37,7 +37,7 @@
                             <div class="col">
                                 Số lượng : ${book.quantity}
                             </div>
-                            <div class="col-2"> ${book.quantity * book.book.price} VNĐ <span class="close">&#10005;</span></div>
+                            <div class="col-2"> ${book.quantity * book.book.price} VNĐ</div>
                         </div>
                     </div>
                 </c:forEach>

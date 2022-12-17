@@ -58,5 +58,6 @@ public class CartServlet extends HttpServlet {
         ArrayList<Book_Item> list_in_cart = cartDAO.getAllItemInCart(cart.getId());
         OrderDAO orderDAO = new OrderDAO();
         orderDAO.saveOrder(name,address,phonenumber,user,total,list_in_cart, cart.getId());
+        resp.sendRedirect("/home");
     }
 }
