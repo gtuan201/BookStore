@@ -7,7 +7,7 @@ public class Order {
     int id;
     User user;
     List<Book_Item> list = new ArrayList<>();
-    String name,address,phonenumber,total;
+    String name,address,phonenumber,total,order_date,complete_date;
     int status;
 
     public Order() {

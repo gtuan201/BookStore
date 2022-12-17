@@ -139,7 +139,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+            <button onclick="showNoti()" type="submit" class="btn btn-primary">Gửi đánh giá</button>
           </div>
         </div>
       </form>
@@ -164,6 +164,7 @@
       $('.alert').show()
     }
     else  {
+      alert('Thêm vào giỏ hàng thành công')
       document.getElementById("form_cart").submit();
     }
     </c:if>
@@ -182,6 +183,9 @@
     cart_link.setAttribute("href","/login");
     </c:if>
     return false;
+  }
+  function showNoti(){
+    alert('Cảm ơn bạn đã gửi đánh giá sản phẩm')
   }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
