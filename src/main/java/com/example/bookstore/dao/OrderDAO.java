@@ -57,6 +57,8 @@ public class OrderDAO extends DAO{
             String sql;
             if (statusInp == 3){
                 sql = "select*from book_project.order where user_id=" + user_id + " and status = 3";
+            }else if (statusInp == 1 && user_id == null){
+                sql = "select*from book_project.order where status = 1";
             }
             else sql = "select*from book_project.order where user_id=" + user_id + " and status = 1 or user_id=" + user_id + " and status =2";
             resultSet = statement.executeQuery(sql);

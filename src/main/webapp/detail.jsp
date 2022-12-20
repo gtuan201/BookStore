@@ -73,11 +73,10 @@
             <div class="alert alert-danger" role="alert" style="display: none">
               Số lượng không hợp lệ ! Vui lòng nhập số lượng lớn hơn hoặc bằng 1
             </div>
-          <button onclick="add()" class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
-            <i class="fa fa-shopping-cart"></i>
+          <button onclick="add()" class="btn btn-danger btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
+            <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
           </button>
-          <button class="btn btn-primary btn-rounded">Mua ngay</button>
-          <button onclick="show()" class="btn btn-danger btn-rounded" data-toggle="modal"><i class="fa fa-star"></i> Đánh giá</button>
+          <button onclick="show()" class="btn btn-primary btn-rounded" data-toggle="modal"><i class="fa fa-star"></i> Đánh giá</button>
           <h3 class="box-title mt-5">Key Highlights</h3>
           <ul class="list-unstyled">
             <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
@@ -111,6 +110,9 @@
             <c:forEach var="item" items="${list_review}">
               <li class="list-group-item">
                 <p style="font-weight: bold; font-family: 'Arial Black','Arial Black'">${item.email_user}</p>
+                <div>
+                    ${item.rating} <i style="color: yellow" class="fa-solid fa-star"></i>
+                </div>
                 <div>
                   ${item.review}
                 </div>

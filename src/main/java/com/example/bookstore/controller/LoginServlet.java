@@ -39,7 +39,10 @@ public class LoginServlet extends HttpServlet {
             }
             session.removeAttribute("login_false");
             session.setAttribute("user",user);
-            resp.sendRedirect("/home");
+            if (user.getType().equals("admin")){
+                resp.sendRedirect("/admin");
+            }
+            else resp.sendRedirect("/home");
         }
     }
 }

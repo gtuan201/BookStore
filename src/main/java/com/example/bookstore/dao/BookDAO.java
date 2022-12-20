@@ -2,6 +2,7 @@ package com.example.bookstore.dao;
 
 import com.example.bookstore.model.Book;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -73,5 +74,17 @@ public class BookDAO extends DAO{
             e.printStackTrace();
         }
         return book;
+    }
+    public void deleteBook(int book_id){
+        PreparedStatement ps = null;
+        String sql = "DELETE from book_project.book where id =" + book_id;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
