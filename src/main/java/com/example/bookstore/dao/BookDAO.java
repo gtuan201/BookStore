@@ -87,4 +87,24 @@ public class BookDAO extends DAO{
             e.printStackTrace();
         }
     }
+    public void updateBook(String id, String name, String author, String description, String date, String page, String category, String img){
+        PreparedStatement ps = null;
+        String sql = "UPDATE book_project.book set name = ?, author = ? , description = ? , date = ? , page = ?, category = ? , img = ? WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,name);
+            ps.setString(2,author);
+            ps.setString(3,description);
+            ps.setString(4,date);
+            ps.setString(5,page);
+            ps.setString(6,category);
+            ps.setString(7,img);
+            ps.setString(8,id);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

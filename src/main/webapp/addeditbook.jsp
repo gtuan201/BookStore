@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="" method="">
+    <form action="${pageContext.request.contextPath}/save" method="post" enctype="multipart/form-data">
         <div class="contact-box">
             <div>
                 <c:if test="${book == null}">
@@ -156,6 +156,10 @@
         width: 50px;
         border-radius: 2px;
         background-color: #2ecc71;
+    }
+
+    input:disabled{
+        background-color: rgb(204, 203, 203);
     }
 
     .field{
