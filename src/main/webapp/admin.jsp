@@ -149,7 +149,7 @@
                     <div class="tab-pane fade show active" id="book">
                         <div class="col">
                             <h3 class="fs-4 mb-3">Danh sách sản phẩm</h3>
-                            <button onclick="addBook()" type="submit" class="btn btn-success">Thêm sách</button>
+                            <button style="margin-bottom: 10px" onclick="addBook()" type="submit" class="btn btn-success">Thêm sách</button>
                             <table class="center table bg-white rounded shadow-sm  table-hover table-bordered">
                                 <thead class="table-success">
                                 <tr>
