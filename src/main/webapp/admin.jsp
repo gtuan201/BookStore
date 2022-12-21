@@ -103,7 +103,7 @@
                 <div class="col-md-3">
                     <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                         <div>
-                            <h3 class="fs-2">%25</h3>
+                            <h3 class="fs-2">25%</h3>
                             <p class="fs-5">Increase</p>
                         </div>
                         <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -149,6 +149,7 @@
                     <div class="tab-pane fade show active" id="book">
                         <div class="col">
                             <h3 class="fs-4 mb-3">Danh sách sản phẩm</h3>
+                            <button onclick="addBook()" type="submit" class="btn btn-success">Thêm sách</button>
                             <table class="center table bg-white rounded shadow-sm  table-hover table-bordered">
                                 <thead class="table-success">
                                 <tr>
@@ -206,6 +207,9 @@
     }
     function submitForm(id){
         window.location.href = "/save?id=" + id;
+    }
+    function addBook(){
+        window.location.href = "/save?id=-1";
     }
 </script>
 </body>

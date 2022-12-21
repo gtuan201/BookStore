@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="${pageContext.request.contextPath}/save" method="post" enctype="multipart/form-data">
+    <form id="myForm" action="${pageContext.request.contextPath}/save" method="post" enctype="multipart/form-data">
         <div class="contact-box">
             <div>
                 <c:if test="${book == null}">
@@ -36,23 +36,23 @@
                 <div style="display: flex;">
                     <div>
                         <label style="font-weight: bold">Tên sách</label>
-                        <input name="title" style="margin-right: 5px;" type="text" class="field" placeholder="Tiêu đề" value="${book.name}" required>
+                        <input id="title" name="title" style="margin-right: 5px;" type="text" class="field" placeholder="Tiêu đề" value="${book.name}" required>
                     </div>
                     <div>
                         <label style="font-weight: bold">Tác giả</label>
-                        <input name="author" style="margin-left: 5px;" type="text" class="field" placeholder="Tác giả" value="${book.author}" required>
+                        <input id="author" name="author" style="margin-left: 5px;" type="text" class="field" placeholder="Tác giả" value="${book.author}" required>
                     </div>
                 </div>
                 <label style="font-weight: bold">Mô tả</label>
-                <textarea name="description" placeholder="Mô tả" class="field" required>${book.description}</textarea>
+                <input style="min-height: 150px;" id="description" name="description" placeholder="Mô tả" class="field" value="${book.description}" required>
                 <div style="display: flex;">
                     <div>
                         <label style="font-weight: bold">Ngày phát hành</label>
-                        <input name="date" style="margin-right: 5px;" type="text" class="field" placeholder="Ngày phát hàng" value="${book.date}" required>
+                        <input id="date" name="date" style="margin-right: 5px;" type="text" class="field" placeholder="Ngày phát hàng" value="${book.date}" required>
                     </div>
                     <div>
                         <label style="font-weight: bold">Số trang</label>
-                        <input name="page" style="margin-left: 5px;" type="number" class="field" placeholder="Số trang" value="${book.page}" required>
+                        <input id="page" name="page" style="margin-left: 5px;" type="number" class="field" placeholder="Số trang" value="${book.page}" required>
                     </div>
                 </div>
                 <div>
@@ -63,7 +63,7 @@
                         </c:forEach>
                     </select>
                 </div>
-                <button type="submit" class="btn">Sửa</button>
+                <input onclick="edit()" id="bt" type="button" class="btn" value="${btn}">
             </div>
         </div>
     </form>
@@ -79,6 +79,32 @@
         })
         reader.readAsDataURL(this.files[0]);
     })
+    //disable input
+    let bt = document.getElementById("bt");
+    if(bt.value === "Sửa") {
+        document.getElementById("title").disabled = true;
+        document.getElementById("author").disabled = true;
+        document.getElementById("date").disabled = true;
+        document.getElementById("page").disabled = true;
+        document.getElementById("category").disabled = true;
+        document.getElementById("description").disabled = true;
+    }
+    //
+    function edit(){
+        let bt = document.getElementById("bt");
+        if(bt.value === "Sửa") {
+            document.getElementById("title").disabled = false;
+            document.getElementById("author").disabled = false;
+            document.getElementById("date").disabled = false;
+            document.getElementById("page").disabled = false;
+            document.getElementById("category").disabled = false;
+            document.getElementById("description").disabled = false;
+            document.getElementById("bt").value = "Lưu";
+        }
+        else {
+            document.getElementById("myForm").submit();
+        }
+    }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -173,10 +199,6 @@
         transition: .3s;
     }
 
-    .field:hover{
-        background-color: rgba(0, 0, 0, 0.1);
-    }
-
     textarea{
         min-height: 150px;
     }
@@ -209,5 +231,14 @@
         .left{
             height: 200px;
         }
+    }
+    textarea:disabled{
+        background-color: rgb(204, 203, 203);
+    }
+    select:disabled{
+        background-color: rgb(204, 203, 203);
+    }
+    input:disabled{
+        background-color: rgb(204, 203, 203);
     }
 </style>

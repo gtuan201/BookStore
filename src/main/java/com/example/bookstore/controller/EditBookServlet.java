@@ -32,9 +32,11 @@ public class EditBookServlet extends HttpServlet {
         Book book = new Book();
         if (id.equals("-1")){
             book = null;
+            req.setAttribute("btn","Thêm");
         }
         else {
             book = bookDAO.getOneBook(id);
+            req.setAttribute("btn","Sửa");
         }
         ArrayList<Category> categories = categoryDAO.getAllCategory();
         req.setAttribute("categorys",categories);
@@ -55,11 +57,15 @@ public class EditBookServlet extends HttpServlet {
         Part filePart = req.getPart("image"); //
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String savePath = "D:/BookStore/src/main/webapp/images/"  + fileName;
-        File file = new File(savePath);
-        filePart.write(savePath + File.separator);
+        String realPath = "";
+        if (!fileName.equals("")){
+            filePart.write(savePath + File.separator);
+            realPath = savePath.substring(29);
+        }
+        else realPath = null;
         BookDAO bookDAO = new BookDAO();
-        String realPath = savePath.substring(29);
-        bookDAO.updateBook(id,name,author,description,date,page,category,realPath);
+        if (!id.equals("-1"))
+            bookDAO.updateBook(id,name,author,description,date,page,category,realPath);
         resp.sendRedirect("admin");
     }
 }
