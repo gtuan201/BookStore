@@ -30,7 +30,7 @@
                             class="fas fa-shopping-cart me-2"></i>Đơn hàng</a>
                 </li>
             </ul>
-            <a href="" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+            <a href="${pageContext.request.contextPath}/logout" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                     class="fas fa-power-off me-2"></i>Đăng xuất</a>
         </div>
     </div>
