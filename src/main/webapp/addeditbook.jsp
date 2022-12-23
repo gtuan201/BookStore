@@ -63,6 +63,10 @@
                         </c:forEach>
                     </select>
                 </div>
+                <div>
+                    <label style="font-weight: bold">Giá tiền</label>
+                    <input id="price" name="price" style="margin-right: 5px;" type="text" class="field" placeholder="Giá tiền" value="${book.price}" required>
+                </div>
                 <input onclick="edit()" id="bt" type="button" class="btn" value="${btn}">
             </div>
         </div>
@@ -88,6 +92,8 @@
         document.getElementById("page").disabled = true;
         document.getElementById("category").disabled = true;
         document.getElementById("description").disabled = true;
+        document.getElementById("price").disabled = true;
+        document.getElementById("customFile").disabled = true;
     }
     //
     function edit(){
@@ -99,10 +105,24 @@
             document.getElementById("page").disabled = false;
             document.getElementById("category").disabled = false;
             document.getElementById("description").disabled = false;
+            document.getElementById("price").disabled = false;
+            document.getElementById("customFile").disabled = false;
             document.getElementById("bt").value = "Lưu";
         }
         else {
-            document.getElementById("myForm").submit();
+            let title = document.getElementById("title").value;
+            let author = document.getElementById("author").value;
+            let description = document.getElementById("description").value;
+            let date = document.getElementById("date").value;
+            let page = document.getElementById("page").value;
+            let category = document.getElementById("category").value;
+            let price = document.getElementById("price").value;
+            let image = document.getElementById("image").src;
+            if (image === "https://static.thenounproject.com/png/3322766-200.png" || title === "" || author === "" || description === ""
+            || date === "" || page === "" || category === "" || price === ""){
+                alert('Không được để thiếu thông tin sách')
+            }
+            else  document.getElementById("myForm").submit();
         }
     }
 </script>

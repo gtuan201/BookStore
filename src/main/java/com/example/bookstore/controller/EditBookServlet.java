@@ -54,6 +54,7 @@ public class EditBookServlet extends HttpServlet {
         String date = req.getParameter("date");
         String page = req.getParameter("page");
         String category = req.getParameter("category");
+        String price = req.getParameter("price");
         Part filePart = req.getPart("image"); //
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String savePath = "D:/BookStore/src/main/webapp/images/"  + fileName;
@@ -64,8 +65,12 @@ public class EditBookServlet extends HttpServlet {
         }
         else realPath = null;
         BookDAO bookDAO = new BookDAO();
-        if (!id.equals("-1"))
-            bookDAO.updateBook(id,name,author,description,date,page,category,realPath);
+        if (!id.equals("-1")){
+            bookDAO.updateBook(id,name,author,description,date,page,category,realPath,price);
+        }
+        else{
+            bookDAO.addBook(name,author,description,date,page,category,realPath,price);
+        }
         resp.sendRedirect("admin");
     }
 }

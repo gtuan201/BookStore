@@ -2,12 +2,11 @@ package com.example.bookstore.model;
 
 public class Book {
     String id,name,author,price,description,category,page,date,img;
-    int isFavorite;
 
     public Book() {
     }
 
-    public Book(String id, String name, String author, String price, String description, String category, String page, String date, String img, int isFavorite) {
+    public Book(String id, String name, String author, String price, String description, String category, String page, String date, String img) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -17,7 +16,6 @@ public class Book {
         this.page = page;
         this.date = date;
         this.img = img;
-        this.isFavorite = isFavorite;
     }
 
     public String getId() {
@@ -90,14 +88,6 @@ public class Book {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public int getIsFavorite() {
-        return isFavorite;
-    }
-
-    public void setIsFavorite(int isFavorite) {
-        this.isFavorite = isFavorite;
     }
 
     @Override

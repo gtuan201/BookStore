@@ -32,8 +32,7 @@ public class BookDAO extends DAO{
                 String page = resultSet.getString("page");
                 String date = resultSet.getString("date");
                 String img = resultSet.getString("img");
-                int isFavorite = resultSet.getInt("isFavorite");
-                Book book = new Book(id,name,author,price,description,category,page,date,img,isFavorite);
+                Book book = new Book(id,name,author,price,description,category,page,date,img);
                 list.add(book);
             }
         }catch (Exception e){
@@ -58,7 +57,6 @@ public class BookDAO extends DAO{
                 String page = resultSet.getString("page");
                 String date = resultSet.getString("date");
                 String img = resultSet.getString("img");
-                int isFavorite = resultSet.getInt("isFavorite");
                 book.setId(id);
                 book.setName(name);
                 book.setAuthor(author);
@@ -68,7 +66,6 @@ public class BookDAO extends DAO{
                 book.setPage(page);
                 book.setPrice(price);
                 book.setImg(img);
-                book.setIsFavorite(isFavorite);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -87,10 +84,10 @@ public class BookDAO extends DAO{
             e.printStackTrace();
         }
     }
-    public void updateBook(String id, String name, String author, String description, String date, String page, String category, String img){
+    public void updateBook(String id, String name, String author, String description, String date, String page, String category, String img, String price){
         PreparedStatement ps = null;
         if (img != null){
-            String sql = "UPDATE book_project.book set name = ?, author = ? , description = ? , date = ? , page = ?, category = ? , img = ? WHERE id = ?";
+            String sql = "UPDATE book_project.book set name = ?, author = ? , description = ? , date = ? , page = ?, category = ? , img = ?, price = ? WHERE id = ?";
             try {
                 ps = con.prepareStatement(sql);
                 ps.setString(1,name);
@@ -100,7 +97,8 @@ public class BookDAO extends DAO{
                 ps.setString(5,page);
                 ps.setString(6,category);
                 ps.setString(7,img);
-                ps.setString(8,id);
+                ps.setString(8,price);
+                ps.setString(9,id);
                 ps.executeUpdate();
                 ps.close();
                 con.close();
@@ -109,7 +107,7 @@ public class BookDAO extends DAO{
             }
         }
         else {
-            String sql = "UPDATE book_project.book set name = ?, author = ? , description = ? , date = ? , page = ?, category = ? WHERE id = ?";
+            String sql = "UPDATE book_project.book set name = ?, author = ? , description = ? , date = ? , page = ?, category = ?, price = ? WHERE id = ?";
             try {
                 ps = con.prepareStatement(sql);
                 ps.setString(1,name);
@@ -118,7 +116,8 @@ public class BookDAO extends DAO{
                 ps.setString(4,date);
                 ps.setString(5,page);
                 ps.setString(6,category);
-                ps.setString(7,id);
+                ps.setString(7,price);
+                ps.setString(8,id);
                 ps.executeUpdate();
                 ps.close();
                 con.close();
@@ -127,18 +126,19 @@ public class BookDAO extends DAO{
             }
         }
     }
-    public void addBook(String name, String author, String description, String date, String page, String category, String img){
+    public void addBook(String name, String author, String description, String date, String page, String category, String img, String price){
         PreparedStatement ps = null;
-        String sql = "INSERT book_project.book INTO values (null, ?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO book_project.book values (null, ?,?,?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,name);
             ps.setString(2,author);
-            ps.setString(3,description);
-            ps.setString(4,date);
-            ps.setString(5,page);
-            ps.setString(6,category);
-            ps.setString(7,img);
+            ps.setString(3,price);
+            ps.setString(4,description);
+            ps.setString(5,category);
+            ps.setString(6,page);
+            ps.setString(7,date);
+            ps.setString(8,img);
             ps.executeUpdate();
             ps.close();
             con.close();
