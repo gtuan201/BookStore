@@ -118,7 +118,7 @@
       </c:forEach>
     </div>
     <div class="tab-pane fade" id="profile">
-      <c:if test="${order_size == 0}">
+      <c:if test="${older_size == 0}">
         <div style="margin-top: 20px" class="alert alert-danger" role="alert">
           Không có lịch sử mua hàng !
         </div>

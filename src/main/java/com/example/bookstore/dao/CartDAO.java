@@ -130,4 +130,16 @@ public class CartDAO extends DAO{
         }
         return list;
     }
+    public void deleteItem(String book_id, String cart_id){
+        PreparedStatement ps = null;
+        String sql = "DELETE from book_project.book_item where book_id =" + book_id +" AND cart_id =" + cart_id;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

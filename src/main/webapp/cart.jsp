@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css'>
     <link rel="stylesheet" href="css/cart.css">
-    <title>Document</title>
+    <title>Giỏ hàng</title>
 </head>
 <body>
 <main>
@@ -38,6 +38,11 @@
                                 Số lượng : ${book.quantity}
                             </div>
                             <div class="col-2"> ${book.quantity * book.book.price} VNĐ</div>
+                            <div style="margin-bottom: 27px" class="col-2 row">
+                                <form id="myFormDel" method="post" action="${pageContext.request.contextPath}/delete_item?id=${book.book.id}">
+                                    <button onclick="deleteBook(${book.book.id})" class="btn btn-danger">Xóa</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
@@ -91,5 +96,10 @@
             window.location.href = "/home";
         </c:if>
 
+    }
+    function deleteBook(id){
+        if (confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng này không?") === true) {
+            document.getElementById("myFormDel").submit();
+        }
     }
 </script>
