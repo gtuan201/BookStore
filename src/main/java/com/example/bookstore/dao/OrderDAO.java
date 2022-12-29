@@ -104,4 +104,19 @@ public class OrderDAO extends DAO{
         }
         return list;
     }
+    public void cancelOrder(String order_id){
+        PreparedStatement ps = null;
+        String sql = "DELETE from book_project.order where id =" + order_id;
+        String sql2 = "DELETE from book_project.book_order where order_id =" + order_id;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+            ps = con.prepareStatement(sql2);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

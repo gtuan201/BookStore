@@ -69,15 +69,17 @@
       <c:forEach var="order" items="${order_list}">
         <div class="container">
           <div class="table">
-            <div class="alert alert-primary" role="alert">
-              Họ tên khách hàng : ${order.name}<br>
-              Địa chỉ giao hàng : ${order.address}<br>
-              Số điện thoại nhận hàng: ${order.phonenumber}<br>
-              Trạng thái :
-              <c:if test="${order.status == 1}">Đang chuẩn bị đơn hàng</c:if>
-              <c:if test="${order.status == 2}">Đang giao hàng</c:if>
-              <br>
-            </div>
+            <form id="cancelForm" method="post">
+              <div class="alert alert-primary" role="alert">
+                Họ tên khách hàng : ${order.name} <span><i onclick="cancelOrder(${order.id})" style="margin-left: 73%" class="fa fa-window-close"></i></span><br>
+                Địa chỉ giao hàng : ${order.address}<br>
+                Số điện thoại nhận hàng: ${order.phonenumber}<br>
+                Trạng thái :
+                <c:if test="${order.status == 1}">Đang chuẩn bị đơn hàng</c:if>
+                <c:if test="${order.status == 2}">Đang giao hàng</c:if>
+                <br>
+              </div>
+            </form>
             <table class="table table-bordered" style="width: 100%">
               <thead>
               <th></th>
@@ -188,6 +190,12 @@
   }
   function goToDetail(id){
     window.location.href = "/detail?id=" + id
+  }
+  function cancelOrder(id){
+    if (confirm('Bạn có muốn hủy đơn hàng này không?') === true){
+      $('#cancelForm').attr('action', '/cancel?id=' + id);
+      document.getElementById("cancelForm").submit();
+    }
   }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
